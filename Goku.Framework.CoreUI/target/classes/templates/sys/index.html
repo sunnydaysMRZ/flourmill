@@ -1,0 +1,70 @@
+
+<!--templates-->
+<div class="animated fadeIn" >
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <a shiro:hasPermission="sys:module:add"  class="opreate-btn layui-btn layui-btn-sm" href="#"  onclick="managerCompany('1')" data-type="add" ><i class="icon-plus"></i>添加企业</a>
+                    <a shiro:hasPermission="sys:module:edit" class="opreate-btn layui-btn layui-btn-sm" href="#" data-type="edit" id="editbtn"><i class="icon-plus"></i>修改企业</a>
+                    <a shiro:hasPermission="sys:module:delete" class="opreate-btn layui-btn layui-btn-sm layui-btn-danger"  href="#" data-type="delete" id="deletebtn"><i class="icon-close"></i>删除</a>
+                </div>
+                <div class="card-body">
+                
+               <!--  <td th:text="${page}"/> -->
+		                <tr th:each="flourmillCompany,userStat: ${page}">
+                               
+		                    
+		                         <div class="layui-col-sm3 padding-20">
+							        <div class="grid-demo "><td th:text="${flourmillCompany.companyName}"/></div>
+							      </div>
+		                     
+		                         
+							 
+		                 </tr>
+                 </div>
+                
+					<div class="layui-row pagerbox">
+					   <div class="m-style M-box"></div>
+					 </div>
+                </div>
+                
+                </div>
+            </div>
+            <!--/.row-->
+        </div>
+
+<!--js-->
+<script th:inline="javascript">
+    function managerCompany(id){
+       $.post('/dannyboss/company/managePage', {"companyid":id}, function(str){
+   		  layer.open({
+   		    type: 1,
+   		    title:"企业管理" ,
+   		    area: ['420px', '230px'],
+   		    resize:false,
+   		    scrollbar: true,
+   		    shadeClose: true,
+   	        move: false,
+   		    content: str //注意，如果str是object，那么需要字符拼接。
+   		  });
+   		});
+    }
+	$('.M-box').pagination({
+		pageCount: 50,
+	    callback: function (api) {
+	        $('.now').text(api.getCurrent());
+	    }
+	}, function (api) {
+	    $('.now').text(api.getCurrent());
+	}); 
+	
+
+</script>
+<!--妯℃澘 js start-->
+<!--妯℃澘 end-->
+
+<!--css-->
+<style type="text/css">
+
+</style>

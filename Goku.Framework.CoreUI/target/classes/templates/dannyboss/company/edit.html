@@ -1,0 +1,86 @@
+<!--templates-->
+<div class="animated fadeIn" >
+    <div class="row" style="width:400px;">
+        <div class="col-lg-12">
+            <div class="card" style="border: 0px solid #c2cfd6;">
+                <div class="card-body" >
+                   
+                      <form  id="companyform" class="layui-form">
+                            <div class="layui-form-item row" >
+                                <label class="layui-form-label">公司名称</label>
+                                <div class="layui-input-block col-md-6">
+                                  <input type="text" id="companyName" name="companyName"  autocomplete="off" placeholder="请输入公司名称" class="layui-input"></input>
+                                  <input type="hidden" id="id" name="id"  autocomplete="off"  class="layui-input" ></input>
+                               </div>
+                            </div>
+                            <div class="layui-form-item" style="margin-left:30px">
+                                <div class="layui-input-block">
+                                    <button type="reset" class="layui-btn" lay-submit=""  id="save" lay-filter="save">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!--/.row-->
+        </div>
+    </div>
+<!--js-->
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+    /*]]>*/
+
+    /*<![CDATA[*/
+    var pageTitle="公司添加/修改 ";//取值
+    /*]]>*/
+
+    layui.config({
+        base: '../lib/layui/layuiextend/treeSelect/'
+    }).use(['layer','form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate
+               
+        form.on('submit(save)',function(data){
+            var from= $("#companyform");
+            var model= serializeObject(from);
+            console.log(model);
+            postJSON("/dannyboss/company/manageCompany",model)
+                    .catch(error => {
+
+                    })
+                    .then(value =>{
+                        if(value==undefined) {
+                            layer.alert(pageTitle+"失败!", {icon: 2});
+                        }else{
+                            var result=JSON.parse(value);
+                            if (result == true) {
+                                layer.alert( pageTitle+'成功!',{
+                                    icon: 6
+                                    ,btn: ['确认']
+                                    ,yes: function(index) {
+                                        layer.close(index);
+                                        setUpUrl("sys/index")
+                                    }
+                                });
+                            } else {
+                                layer.alert(pageTitle+"失败!", {icon: 2});
+                            }
+                        }
+                    });
+
+            return false;
+        });
+
+
+    });
+</script>
+<!--模板 js start-->
+<!--模板 end-->
+<!--css-->
+<style type="text/css">
+
+</style>

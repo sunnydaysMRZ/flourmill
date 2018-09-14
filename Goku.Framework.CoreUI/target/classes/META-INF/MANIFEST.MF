@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-Title: Goku.Framework.CoreUI
+Implementation-Version: 1.0-SNAPSHOT
+Implementation-Vendor-Id: com.goku
+Build-Jdk: 1.7.0_17
+Built-By: zhaobin
+Created-By: Maven Integration for Eclipse
+Implementation-URL: http://projects.spring.io/spring-boot/Goku.Framewo
+ rk.CoreUI/
+
